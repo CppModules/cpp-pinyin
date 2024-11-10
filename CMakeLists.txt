@@ -98,7 +98,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND
         ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-        ${CMAKE_BINARY_DIR}/bin/${dict}
+        ${CMAKE_BINARY_DIR}/res/${dict}
 )
 
 # ----------------------------------
