@@ -12,6 +12,9 @@ public:
 auto m_global = std::make_unique<G2pGlobal>();
 
 std::filesystem::path dictionaryPath() {
+  if (!m_global) {
+    m_global = std::make_unique<G2pGlobal>();
+  }
   return m_global->path;
 }
 
@@ -46,4 +49,33 @@ bool isSpecialKana(char32_t c) {
   };
   return specialKana.find(c) != specialKana.end();
 }
+
+std::string getInitials(const std::string &pinyin, bool strict) {
+  auto startsWith = [](const std::string &str, std::string_view prefix) {
+    // 检查前缀的长度是否大于源字符串的长度
+    if (prefix.length() > str.length()) {
+      return false;
+    }
+    // 使用substr进行比较
+    return str.substr(0, prefix.length()) == prefix;
+  };
+  std::vector<std::string_view> *p;
+  if (strict) {
+    static std::vector<std::string_view> _INITIALS = {"b", "p", "m", "f", "d", "t", "n", "l", "g", "k", "h", "j", "q",
+                                                      "x", "zh", "ch", "sh", "r", "z", "c", "s",};
+    p = &_INITIALS;
+  } else {
+    static std::vector<std::string_view> _INITIALS_NOT_STRICT = {"b", "p", "m", "f", "d", "t", "n", "l", "g", "k", "h",
+                                                                 "j", "q",
+                                                                 "x", "zh", "ch", "sh", "r", "z", "c", "s", "y", "w"};
+    p = &_INITIALS_NOT_STRICT;
+  }
+  for (auto &i: *p) {
+    if (startsWith(pinyin,i)) {
+      return i.data();
+    }
+  }
+  return "";
+}
+
 }
