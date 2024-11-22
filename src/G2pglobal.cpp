@@ -1,6 +1,7 @@
 #include <cpp-pinyin/G2pglobal.h>
 
 #include <memory>
+#include <vector>
 #include <unordered_set>
 
 namespace Pinyin {
