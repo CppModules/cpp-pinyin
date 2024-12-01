@@ -148,7 +148,7 @@ static u32str tone3ToTone2(const u32str &pinyin, bool v_to_u = false) {
 }
 
 u32str tone3ToTone(const u32str &pinyin) {
-  if (pinyin.back() == U'0' || pinyin.back() == U'1' || pinyin.back() == U'2' || pinyin.back() == U'3' || pinyin.back() == U'4') {
+  if (pinyin.back() == U'0' || pinyin.back() == U'1' || pinyin.back() == U'2' || pinyin.back() == U'3' || pinyin.back() == U'4' || pinyin.back() == U'5') {
     const auto tone2 = tone3ToTone2(pinyin, true);
     return toneToTone(tone2);
   }
