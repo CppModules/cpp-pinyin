@@ -9,10 +9,7 @@ namespace Pinyin
 {
     class CPP_PINYIN_EXPORT Pinyin final : public ChineseG2p {
     public:
-        explicit Pinyin() :
-            ChineseG2p("mandarin") {
-            this->setToneConverter(m_toneConverter);
-        }
+        explicit Pinyin();
 
         ~Pinyin() = default;
 

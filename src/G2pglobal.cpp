@@ -1,3 +1,6 @@
+#include "cpp-pinyin/Pinyin.h"
+
+
 #include <cpp-pinyin/G2pglobal.h>
 
 #include <memory>
@@ -5,6 +8,7 @@
 #include <unordered_set>
 
 namespace Pinyin {
+
 class G2pGlobal {
 public:
   std::filesystem::path path = std::filesystem::current_path() / "res" / "dict";
@@ -19,7 +23,7 @@ std::filesystem::path dictionaryPath() {
   return m_global->path;
 }
 
-void setDictionaryPath(const std::filesystem::path &dir) {
+void setDictionaryPath(const std::string &dir) {
   m_global->path = dir;
 }
 
@@ -80,3 +84,4 @@ std::string getInitials(const std::string &pinyin, bool strict) {
 }
 
 }
+

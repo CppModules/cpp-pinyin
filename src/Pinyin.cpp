@@ -1,6 +1,11 @@
 #include <cpp-pinyin/Pinyin.h>
+#include <cpp-pinyin/G2pglobal.h>
 
 namespace Pinyin {
+Pinyin::Pinyin() : ChineseG2p("mandarin") {
+  this->setToneConverter(m_toneConverter);
+}
+
 PinyinResVector Pinyin::hanziToPinyin(const std::string &hans, ManTone::Style style, Error error, bool candidates,
                                       bool v_to_u, bool neutral_tone_with_five) const {
   /*

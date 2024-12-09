@@ -16,17 +16,17 @@ option(CPP_PINYIN_INSTALL "Install library" ON)
 # ----------------------------------
 # CMake Settings
 # ----------------------------------
-if (NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-endif ()
-
-if (NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-endif ()
-
-if (NOT DEFINED CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-endif ()
+#if (NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+#  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#endif ()
+#
+#if (NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+#  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#endif ()
+#
+#if (NOT DEFINED CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+#  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#endif ()
 
 if (MSVC)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /manifest:no")
@@ -63,14 +63,14 @@ if (CPP_PINYIN_BUILD_TESTS)
   add_subdirectory(tests)
 
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-      COMMAND
-      ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-      ${CMAKE_BINARY_DIR}/tests/${dict}
+          COMMAND
+          ${CMAKE_COMMAND} -E copy_directory
+          ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+          ${CMAKE_BINARY_DIR}/tests/${dict}
   )
   install(
-      DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-      DESTINATION .
+          DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+          DESTINATION .
   )
 endif ()
 
@@ -88,27 +88,26 @@ endif ()
 # ----------------------------------
 target_include_directories(${PROJECT_NAME} PRIVATE include src src/toneUtil)
 target_include_directories(${PROJECT_NAME} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 # ----------------------------------
 # copy dictionary
 # ----------------------------------
-
 if (CMAKE_SYSTEM_NAME STREQUAL "Android")
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-      COMMAND
-      ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-      ${CMAKE_SOURCE_DIR}/../assets/res/${dict}
+          COMMAND
+          ${CMAKE_COMMAND} -E copy_directory
+          ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+          ${CMAKE_SOURCE_DIR}/../assets/res/${dict}
   )
 
 else ()
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-      COMMAND
-      ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-      ${CMAKE_BINARY_DIR}/res/${dict}
+          COMMAND
+          ${CMAKE_COMMAND} -E copy_directory
+          ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+          ${CMAKE_BINARY_DIR}/res/${dict}
   )
 endif ()
 
@@ -117,55 +116,55 @@ endif ()
 # ----------------------------------
 if (CPP_PINYIN_INSTALL)
   target_include_directories(${PROJECT_NAME} PUBLIC
-      $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   )
 
   install(TARGETS ${PROJECT_NAME}
-      EXPORT ${PROJECT_NAME}Targets
-      RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" OPTIONAL
-      LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" OPTIONAL
-      ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" OPTIONAL
+          EXPORT ${PROJECT_NAME}Targets
+          RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" OPTIONAL
+          LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" OPTIONAL
+          ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" OPTIONAL
   )
 
   install(DIRECTORY include/${PROJECT_NAME}
-      DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+          DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   )
 
   # Generate and install package config and version files
   write_basic_package_version_file(
-      "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-      VERSION ${PROJECT_VERSION}
-      COMPATIBILITY AnyNewerVersion
+          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+          VERSION ${PROJECT_VERSION}
+          COMPATIBILITY AnyNewerVersion
   )
 
   configure_package_config_file(
-      ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Config.cmake.in
-      "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-      INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-      NO_CHECK_REQUIRED_COMPONENTS_MACRO
+          ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Config.cmake.in
+          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+          INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+          NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
 
   install(FILES
-      "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-      "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-      DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+          DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
   )
 
   install(EXPORT ${PROJECT_NAME}Targets
-      FILE ${PROJECT_NAME}Targets.cmake
-      NAMESPACE ${PROJECT_NAME}::
-      DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+          FILE ${PROJECT_NAME}Targets.cmake
+          NAMESPACE ${PROJECT_NAME}::
+          DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
   )
 
   if (NOT DEFINED VCPKG_DICT_DIR)
     install(
-        DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
   else ()
     install(
-        DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
-        DESTINATION ${VCPKG_DICT_DIR}
+            DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/${dict}
+            DESTINATION ${VCPKG_DICT_DIR}
     )
   endif ()
 endif ()

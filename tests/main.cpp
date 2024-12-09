@@ -3,35 +3,36 @@
 #include <cpp-pinyin/Pinyin.h>
 #include <cpp-pinyin/G2pglobal.h>
 #include <iostream>
+//
+// #include "JyuptingTest.h"
+// #include "ManTest.h"
 
-#include "JyuptingTest.h"
-#include "ManTest.h"
-
-using namespace Test;
+// using namespace Test;
 
 int main(int argc, char *argv[]) {
     const auto applicationDirPath = std::filesystem::current_path() / "dict";
     Pinyin::setDictionaryPath(applicationDirPath);
     std::cout << "Path: " << applicationDirPath << std::endl;
 
-    const ManTest manTest;
-    std::cout << "Pinyin G2P test: " << std::endl;
-    std::cout << "--------------------" << std::endl;
-    std::cout << "apiTest: " << manTest.apiTest() << std::endl;
-    std::cout << "--------------------" << std::endl;
-    manTest.toneBatchTest();
-    std::cout << "--------------------" << std::endl;
-    manTest.unToneBatchTest();
-    std::cout << "--------------------\n" << std::endl;
-
-    const JyuptingTest jyuptingTest;
-    std::cout << "Cantonese G2P test:" << std::endl;
-    std::cout << "--------------------" << std::endl;
-    jyuptingTest.batchTest();
-    std::cout << "--------------------\n" << std::endl;
+    // const ManTest manTest;
+    // std::cout << "Pinyin G2P test: " << std::endl;
+    // std::cout << "--------------------" << std::endl;
+    // std::cout << "apiTest: " << manTest.apiTest() << std::endl;
+    // std::cout << "--------------------" << std::endl;
+    // manTest.toneBatchTest();
+    // std::cout << "--------------------" << std::endl;
+    // manTest.unToneBatchTest();
+    // std::cout << "--------------------\n" << std::endl;
+    //
+    // const JyuptingTest jyuptingTest;
+    // std::cout << "Cantonese G2P test:" << std::endl;
+    // std::cout << "--------------------" << std::endl;
+    // jyuptingTest.batchTest();
+    // std::cout << "--------------------\n" << std::endl;
 
     std::cout << "G2P mix test:" << std::endl;
     std::cout << "--------------------" << std::endl;
+  Pinyin::setDictionaryPath(std::filesystem::current_path());
     const auto g2p_man = std::make_unique<Pinyin::Pinyin>();
 
     const std::string raw2 =

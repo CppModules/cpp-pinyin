@@ -1,5 +1,5 @@
-#ifndef G2PGLOBAL_H
-#define G2PGLOBAL_H
+#ifndef _CPPPINYIN_G2PGLOBAL_H
+#define _CPPPINYIN_G2PGLOBAL_H
 
 #include <filesystem>
 
@@ -8,7 +8,7 @@
 namespace Pinyin {
 std::filesystem::path CPP_PINYIN_EXPORT dictionaryPath();
 
-void CPP_PINYIN_EXPORT setDictionaryPath(const std::filesystem::path &dir);
+void CPP_PINYIN_EXPORT setDictionaryPath(const std::string &dir);
 
 bool CPP_PINYIN_EXPORT isLetter(char32_t c);
 
@@ -25,4 +25,4 @@ bool CPP_PINYIN_EXPORT isSpecialKana(char32_t c);
 std::string CPP_PINYIN_EXPORT getInitials(const std::string &pinyin, bool strict= true);
 }
 
-#endif // G2PGLOBAL_H
+#endif // _CPPPINYIN_G2PGLOBAL_H
