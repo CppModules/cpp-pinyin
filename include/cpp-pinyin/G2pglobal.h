@@ -8,7 +8,7 @@
 namespace Pinyin {
 std::filesystem::path CPP_PINYIN_EXPORT dictionaryPath();
 
-void CPP_PINYIN_EXPORT setDictionaryPath(const std::string &dir);
+void CPP_PINYIN_EXPORT setDictionaryPath(const std::filesystem::path &dir);
 
 bool CPP_PINYIN_EXPORT isLetter(char32_t c);
 

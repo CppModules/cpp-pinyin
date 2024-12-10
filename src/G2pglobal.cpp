@@ -23,7 +23,7 @@ std::filesystem::path dictionaryPath() {
   return m_global->path;
 }
 
-void setDictionaryPath(const std::string &dir) {
+void setDictionaryPath(const std::filesystem::path &dir) {
   m_global->path = dir;
 }
 
